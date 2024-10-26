@@ -18,10 +18,12 @@ class Book {
 Book.prototype.toggleRead = function () {
     this.isRead = !this.isRead;
 };
+const addBook = () => {
+};
 const renderBook = () => {
     const bookContainer = document.querySelector(".book-container");
     if (myLibrary) {
-        const newBooks = myLibrary.map((book) => {
+        const newBooks = myLibrary.map((book, i) => {
             const div = document.createElement("div");
             div.className = "books";
             div.innerHTML = `<div class="book-stats">
@@ -34,12 +36,17 @@ const renderBook = () => {
                 : "You haven't read this book"}</p>
         </div>
                 <div class="book-buttons">
-                    <button class="remove-button">Remove</button>
-                    <button class="read-button">Read</button>
+                    <button data-index=${i} class="remove-button">Remove</button>
+                    <button data-index=${i} class="read-button">Read</button>
                 </div>`;
             return div;
         });
         bookContainer.append(...newBooks);
     }
 };
+const dialog = document.querySelector("dialog");
+const addButton = document.querySelector("#add");
+addButton.addEventListener("click", (e) => {
+    dialog.showModal();
+});
 renderBook();
