@@ -31,14 +31,32 @@ Book.prototype.toggleRead = function () {
   this.isRead = !this.isRead;
 };
 
-const addBook = () => {
-  
-}
+const addBookToLib = () => {
+  const title = (<HTMLInputElement>document.querySelector("#title")).value;
+  const author = (<HTMLInputElement>document.querySelector("#author")).value;
+  const pages = (document.querySelector("#pages") as HTMLInputElement).value;
+  const read = (
+    document.querySelector(`input[name="isRead"]:checked`) as HTMLInputElement
+  ).value;
+
+  const newBook = new Book(title, author, parseInt(pages), JSON.parse(read));
+  myLibrary.push(newBook);
+  renderBook();
+};
+
+const clearFormField = () => {
+  (<HTMLInputElement>document.querySelector("#title")).value = "";
+  (<HTMLInputElement>document.querySelector("#author")).value = "";
+  (document.querySelector("#pages") as HTMLInputElement).value = "";
+  (document.querySelectorAll(`input[name="isRead"]`) as NodeList).forEach(
+    (radio) => ((radio as HTMLInputElement).checked = false)
+  );
+};
 
 const renderBook = () => {
   const bookContainer = document.querySelector(".book-container");
   if (myLibrary) {
-    const newBooks = myLibrary.map((book,i) => {
+    const newBooks = myLibrary.map((book, i) => {
       const div = document.createElement("div");
       div.className = "books";
 
@@ -60,20 +78,35 @@ const renderBook = () => {
       return div;
     });
 
+    bookContainer!.innerHTML = "";
     bookContainer!.append(...newBooks);
   }
 };
 
-const dialog = document.querySelector("dialog")
-const addButton = document.querySelector("#add")
-const closeButton = document.querySelector(".close-button")
+const dialog = document.querySelector("dialog");
+const addButton = document.querySelector("#add");
+const resetButton = document.querySelector("#reset");
+const closeFormButton = document.querySelector(".close-button");
+const addBookButton = document.querySelector("#save");
 
-addButton!.addEventListener("click",() => {
-  dialog!.showModal()
-})
-closeButton?.addEventListener("click",() => {
-  dialog?.close()
-})
+addButton?.addEventListener("click", () => {
+  dialog?.showModal();
+});
 
+addBookButton?.addEventListener("click", (e) => {
+  e.preventDefault();
+  addBookToLib();
+  clearFormField();
+  dialog?.close();
+});
+
+resetButton?.addEventListener("click", () => {
+  clearFormField();
+});
+
+closeFormButton?.addEventListener("click", () => {
+  clearFormField();
+  dialog?.close();
+});
 
 renderBook();

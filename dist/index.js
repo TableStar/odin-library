@@ -18,7 +18,20 @@ class Book {
 Book.prototype.toggleRead = function () {
     this.isRead = !this.isRead;
 };
-const addBook = () => {
+const addBookToLib = () => {
+    const title = document.querySelector("#title").value;
+    const author = document.querySelector("#author").value;
+    const pages = document.querySelector("#pages").value;
+    const read = document.querySelector(`input[name="isRead"]:checked`).value;
+    const newBook = new Book(title, author, parseInt(pages), JSON.parse(read));
+    myLibrary.push(newBook);
+    renderBook();
+};
+const clearFormField = () => {
+    document.querySelector("#title").value = "";
+    document.querySelector("#author").value = "";
+    document.querySelector("#pages").value = "";
+    document.querySelectorAll(`input[name="isRead"]`).forEach((radio) => (radio.checked = false));
 };
 const renderBook = () => {
     const bookContainer = document.querySelector(".book-container");
@@ -41,16 +54,29 @@ const renderBook = () => {
                 </div>`;
             return div;
         });
+        bookContainer.innerHTML = "";
         bookContainer.append(...newBooks);
     }
 };
 const dialog = document.querySelector("dialog");
 const addButton = document.querySelector("#add");
-const closeButton = document.querySelector(".close-button");
-addButton.addEventListener("click", () => {
-    dialog.showModal();
+const resetButton = document.querySelector("#reset");
+const closeFormButton = document.querySelector(".close-button");
+const addBookButton = document.querySelector("#save");
+addButton === null || addButton === void 0 ? void 0 : addButton.addEventListener("click", () => {
+    dialog === null || dialog === void 0 ? void 0 : dialog.showModal();
 });
-closeButton === null || closeButton === void 0 ? void 0 : closeButton.addEventListener("click", () => {
+addBookButton === null || addBookButton === void 0 ? void 0 : addBookButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    addBookToLib();
+    clearFormField();
+    dialog === null || dialog === void 0 ? void 0 : dialog.close();
+});
+resetButton === null || resetButton === void 0 ? void 0 : resetButton.addEventListener("click", () => {
+    clearFormField();
+});
+closeFormButton === null || closeFormButton === void 0 ? void 0 : closeFormButton.addEventListener("click", () => {
+    clearFormField();
     dialog === null || dialog === void 0 ? void 0 : dialog.close();
 });
 renderBook();
