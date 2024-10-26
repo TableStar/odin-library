@@ -66,11 +66,14 @@ const renderBook = () => {
 
 const dialog = document.querySelector("dialog")
 const addButton = document.querySelector("#add")
+const closeButton = document.querySelector(".close-button")
 
-addButton!.addEventListener("click",(e) => {
+addButton!.addEventListener("click",() => {
   dialog!.showModal()
 })
-
+closeButton?.addEventListener("click",() => {
+  dialog?.close()
+})
 
 
 renderBook();

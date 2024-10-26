@@ -46,7 +46,11 @@ const renderBook = () => {
 };
 const dialog = document.querySelector("dialog");
 const addButton = document.querySelector("#add");
-addButton.addEventListener("click", (e) => {
+const closeButton = document.querySelector(".close-button");
+addButton.addEventListener("click", () => {
     dialog.showModal();
+});
+closeButton === null || closeButton === void 0 ? void 0 : closeButton.addEventListener("click", () => {
+    dialog === null || dialog === void 0 ? void 0 : dialog.close();
 });
 renderBook();

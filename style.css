@@ -47,9 +47,7 @@ h1 {
   row-gap: 20px;
 }
 
-
-
-.book-buttons{
+.book-buttons {
   display: flex;
   margin-top: 24px;
   justify-content: flex-end;
@@ -58,8 +56,8 @@ h1 {
   align-self: ;
 }
 .book-buttons > button {
-    height: 30px;
-    width: 56px;
+  height: 30px;
+  width: 56px;
 }
 
 .button-container {
@@ -68,18 +66,115 @@ h1 {
   justify-content: center;
 }
 
-dialog{
+#add {
+  width: 100px;
+  height: 32px;
+  border-radius: 8px;
+  border: 0px;
+  background-color: pink;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#add:hover {
+  transform: scale(1.1);
+}
+
+dialog {
   border: none !important;
   border-radius: 12px;
   margin: auto;
   min-height: 500px;
   min-width: 400px;
   overflow-y: auto;
-  padding: 24px;
+  padding: 12px 24px;
 }
+
 
 #main-dialog {
   display: flex;
   flex-direction: column;
   text-align: center;
+}
+
+.close-container {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 1px;
+  font-weight: bolder;
+}
+
+.close-button {
+  background-color: white;
+  border: 0px solid black;
+  font-size: x-large;
+  border-radius: 12px;
+  padding: 8px;
+  width: 40px;
+  height: 40px;
+}
+
+.close-button:hover {
+  background-color: rgb(232, 232, 232);
+  cursor: pointer;
+}
+
+form {
+  margin-top: 16px;
+}
+
+.input-container {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  text-align: start;
+  padding: 0px 20px;
+}
+
+.input {
+  width: 250px;
+  height: 24px;
+  padding: 0px 8px;
+  background-color: rgb(237, 237, 237);
+  outline: none;
+  border: none;
+  border-radius: 4px;
+}
+
+.input:focus {
+  border: 2px solid pink;
+}
+
+label {
+  max-width: 100px;
+  font-weight: bold;
+}
+
+.radio-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 32px;
+}
+
+.form-button-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  margin-top: 60px;
+  align-items: center;
+}
+
+.form-button-container button {
+  width: 100px;
+  height: 32px;
+  border-radius: 8px;
+  border: 0px;
+  background-color: pink;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.form-button-container button:hover {
+  transform: scale(1.1);
 }
