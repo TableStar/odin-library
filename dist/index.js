@@ -1,5 +1,5 @@
 "use strict";
-const myLibrary = [
+let myLibrary = [
     {
         title: "The Twin Towers",
         author: "J.R.R Tolkien",
@@ -33,6 +33,34 @@ const clearFormField = () => {
     document.querySelector("#pages").value = "";
     document.querySelectorAll(`input[name="isRead"]`).forEach((radio) => (radio.checked = false));
 };
+const booksEventListeners = () => {
+    const toggleReadButton = document.querySelectorAll(".read-button");
+    const removeButton = document.querySelectorAll(".remove-button");
+    toggleReadButton.forEach((button) => {
+        button.addEventListener("click", toggleRead);
+    });
+    removeButton.forEach((button) => {
+        button.addEventListener("click", removeBook);
+    });
+};
+const toggleRead = (e) => {
+    var _a, _b;
+    const index = e.target.dataset.index;
+    if (index !== undefined) {
+        if ("toggleRead" in myLibrary[Number(index)]) {
+            (_b = (_a = myLibrary[Number(index)]).toggleRead) === null || _b === void 0 ? void 0 : _b.call(_a);
+        }
+        else {
+            myLibrary[Number(index)].isRead = !myLibrary[Number(index)].isRead;
+        }
+        renderBook();
+    }
+};
+const removeBook = (e) => {
+    const index = e.target.dataset.index;
+    myLibrary.splice(Number(index), 1);
+    renderBook();
+};
 const renderBook = () => {
     const bookContainer = document.querySelector(".book-container");
     if (myLibrary) {
@@ -56,6 +84,7 @@ const renderBook = () => {
         });
         bookContainer.innerHTML = "";
         bookContainer.append(...newBooks);
+        booksEventListeners();
     }
 };
 const dialog = document.querySelector("dialog");
@@ -68,6 +97,12 @@ addButton === null || addButton === void 0 ? void 0 : addButton.addEventListener
 });
 addBookButton === null || addBookButton === void 0 ? void 0 : addBookButton.addEventListener("click", (e) => {
     e.preventDefault();
+    const form = document.querySelector("#main-form");
+    console.log(form);
+    if (!form.checkValidity()) {
+        alert("fill all input Please");
+        return;
+    }
     addBookToLib();
     clearFormField();
     dialog === null || dialog === void 0 ? void 0 : dialog.close();

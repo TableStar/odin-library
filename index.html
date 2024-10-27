@@ -22,20 +22,20 @@
                     <label for="title">
                         Title
                     </label>
-                    <input type="text" id="title" name="title" placeholder="The title of your book" class="input">
+                    <input type="text" id="title" name="title" placeholder="The title of your book" class="input" required>
                 </div>
                 <div class="input-container">
                     <label for="author">
                         Author
                     </label>
-                    <input type="text" id="author" name="author" placeholder="The author of your book" class="input">
+                    <input type="text" id="author" name="author" placeholder="The author of your book" class="input" required>
                 </div>
                 <div class="input-container">
                     <label for="pages">
                         Pages
                     </label>
                     <input type="number" id="pages" name="pages" placeholder="The total pages of your book" min="0"
-                        class="input">
+                        class="input" required>
                 </div>
                 <div class="radio-container">
                     <div>
@@ -43,15 +43,15 @@
                         <label for="isRead-true">Already read! </label>
                     </div>
                     <div>
-                        <input type="radio" id="isRead-false" name="isRead" value="false">
+                        <input type="radio" id="isRead-false" name="isRead" value="false" required checked>
                         <label for="isRead-false">Not read yet!</label>
                     </div>
                 </div>
 
             </form>
             <div class="form-button-container">
-                <button type="submit" form="main-dialog" id="save">Add Book</button>
-                <button type="button" form="main-dialog" id="reset">Reset</button>
+                <button type="submit" form="main-form" id="save">Add Book</button>
+                <button type="button" form="main-form" id="reset">Reset</button>
             </div>
         </div>
     </dialog>

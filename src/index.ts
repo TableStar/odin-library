@@ -3,9 +3,10 @@ interface BookInterface {
   author: string;
   pages: number;
   isRead: boolean;
+  toggleRead?: () => void;
 }
 
-const myLibrary: BookInterface[] = [
+let myLibrary: BookInterface[] = [
   {
     title: "The Twin Towers",
     author: "J.R.R Tolkien",
@@ -53,6 +54,36 @@ const clearFormField = () => {
   );
 };
 
+const booksEventListeners = () => {
+  const toggleReadButton = document.querySelectorAll(".read-button");
+  const removeButton = document.querySelectorAll(".remove-button");
+
+  toggleReadButton.forEach((button) => {
+    button.addEventListener("click", toggleRead);
+  });
+  removeButton.forEach((button) => {
+    button.addEventListener("click", removeBook);
+  });
+};
+
+const toggleRead = (e: Event) => {
+  const index = (e.target as HTMLElement).dataset.index;
+  if (index !== undefined) {
+    if ("toggleRead" in myLibrary[Number(index)]) {
+      myLibrary[Number(index)].toggleRead?.();
+    } else {
+      myLibrary[Number(index)].isRead = !myLibrary[Number(index)].isRead;
+    }
+    renderBook();
+  }
+};
+
+const removeBook = (e: Event) => {
+  const index = (e.target as HTMLElement).dataset.index;
+  myLibrary.splice(Number(index), 1);
+  renderBook();
+};
+
 const renderBook = () => {
   const bookContainer = document.querySelector(".book-container");
   if (myLibrary) {
@@ -77,9 +108,9 @@ const renderBook = () => {
                 </div>`;
       return div;
     });
-
     bookContainer!.innerHTML = "";
     bookContainer!.append(...newBooks);
+    booksEventListeners();
   }
 };
 
@@ -95,6 +126,12 @@ addButton?.addEventListener("click", () => {
 
 addBookButton?.addEventListener("click", (e) => {
   e.preventDefault();
+  const form = document.querySelector("#main-form") as HTMLFormElement
+  console.log(form);
+  if (!form!.checkValidity()) {
+    alert("fill all input Please")
+    return
+  }
   addBookToLib();
   clearFormField();
   dialog?.close();
